@@ -3,12 +3,17 @@ package contacts;
 public class ContactRecord {
     private String firstName;
     private String lastName;
-    private String phoneNumber;
+    private String phoneNumber = "";
+    private String generalGroupRegex = "([ -][0-9a-zA-Z]{2,})";
+    private String validNumberRegex = "[+]?\\([0-9a-zA-Z]{1,}\\)" + generalGroupRegex + "*" +
+            "|[+]?[0-9a-zA-Z]{1,}[ -]\\([0-9a-zA-Z]{2,}\\)" + generalGroupRegex + "*" +
+            "|[+]?[0-9a-zA-Z]{1,}" + generalGroupRegex + "*";
 
-    public ContactRecord(String firstName, String lastName, String phoneNumber) {
-        this.firstName = firstName;
-        this.lastName = lastName;
-        this.phoneNumber = phoneNumber;
+    private boolean isValidPhoneNumber (String testPhoneNumber) {
+        return testPhoneNumber.matches(this.validNumberRegex);
+    }
+
+    public ContactRecord() {
     }
 
     public String getFirstName() {
@@ -28,10 +33,22 @@ public class ContactRecord {
     }
 
     public String getPhoneNumber() {
+        if(!this.hasNumber()) return "[no number]";
         return phoneNumber;
     }
 
-    public void setPhoneNumber(String phoneNumber) {
-        this.phoneNumber = phoneNumber;
+    public void setPhoneNumber(String phoneNumber) throws Exception
+    {
+        boolean validNumber = isValidPhoneNumber(phoneNumber);
+        if(validNumber) {
+            this.phoneNumber = phoneNumber;
+        } else {
+            this.phoneNumber = "";
+            throw new Exception(("Wrong Number Format"));
+        }
+    }
+
+    public boolean hasNumber() {
+        return !(this.phoneNumber.isEmpty());
     }
 }
