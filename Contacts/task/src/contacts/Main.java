@@ -9,8 +9,9 @@ public class Main {
         PrintStream printStream = new PrintStream(System.out);
         Application application = new Application(scanner, printStream);
 
-        while(!application.exitFlag) {
+        while(application.running) {
             application.requestCommand();
+            printStream.println();
         }
     }
 
