@@ -1,4 +1,4 @@
-package contacts;
+package contacts.records;
 
 class OrganizationRecord extends ContactRecord {
     private String organizationName;
