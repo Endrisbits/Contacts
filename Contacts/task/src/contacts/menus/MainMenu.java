@@ -7,7 +7,7 @@ import java.io.PrintStream;
 import java.util.ArrayList;
 import java.util.Scanner;
 
-class MainMenu extends Menu {
+class MainMenu extends AbstractMenu {
     private final TYPE menuID = TYPE.MAIN_MENU;
     private enum COMMAND{
         ADD("add"),

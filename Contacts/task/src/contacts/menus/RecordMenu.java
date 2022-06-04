@@ -6,7 +6,7 @@ import java.io.PrintStream;
 import java.util.ArrayList;
 import java.util.Scanner;
 
-class RecordMenu extends Menu {
+class RecordMenu extends AbstractMenu {
     private final TYPE menuID = TYPE.RECORD_MENU;
     private enum COMMAND{
         EDIT("edit"),

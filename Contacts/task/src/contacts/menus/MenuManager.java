@@ -10,8 +10,8 @@ import java.util.Scanner;
 enum TYPE {MAIN_MENU, SEARCH_MENU, LIST_MENU, RECORD_MENU}
 
 public class MenuManager {
-    private HashMap<TYPE, Menu> menus = new HashMap<>(5);
-    private Menu currentActiveMenu;
+    private HashMap<TYPE, AbstractMenu> menus = new HashMap<>(5);
+    private AbstractMenu currentActiveMenu;
     private Scanner in;
     private PrintStream out;
     private ArrayList<ContactRecord> contactsList;
@@ -28,11 +28,11 @@ public class MenuManager {
         setCurrentActiveMenu(TYPE.MAIN_MENU);
     }
 
-    public void register(TYPE type, Menu menu) {
+    public void register(TYPE type, AbstractMenu menu) {
         menus.put(type, menu);
     }
 
-    public Menu getCurrentActiveMenu() {
+    public AbstractMenu getCurrentActiveMenu() {
         return this.currentActiveMenu;
     }
 
@@ -41,7 +41,7 @@ public class MenuManager {
         else currentActiveMenu = null;
     }
 
-    public Menu getMenu(TYPE key) {
+    public AbstractMenu getMenu(TYPE key) {
         if(menus.containsKey(key)) return menus.get(key);
         else return null;
     }

@@ -6,7 +6,7 @@ import java.io.PrintStream;
 import java.util.ArrayList;
 import java.util.Scanner;
 
-abstract class Menu {
+abstract class AbstractMenu {
     protected MenuManager menuManager;
     protected Scanner in;
     protected PrintStream out;
@@ -26,7 +26,7 @@ abstract class Menu {
         return sb.toString();
     }
 
-    public Menu(Scanner inputSource, PrintStream outputConsole, ArrayList<ContactRecord> data, MenuManager manager) {
+    public AbstractMenu(Scanner inputSource, PrintStream outputConsole, ArrayList<ContactRecord> data, MenuManager manager) {
         this.in = inputSource;
         this.out = outputConsole;
         this.contactsList = data;

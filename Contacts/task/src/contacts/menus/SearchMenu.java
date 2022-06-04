@@ -8,7 +8,7 @@ import java.util.Scanner;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-class SearchMenu extends Menu {
+class SearchMenu extends AbstractMenu {
     private final TYPE menuID = TYPE.SEARCH_MENU;
     private enum COMMAND{
         SELECT("[number]"),
