@@ -1,7 +1,7 @@
-package contacts;
+package contacts.common;
 
-import contacts.records.ContactRecord;
 import contacts.menus.MenuManager;
+import contacts.records.ContactRecord;
 
 import java.io.PrintStream;
 import java.util.ArrayList;
