@@ -1,8 +1,8 @@
-package contacts;
+package contacts.common;
 
 import java.time.LocalDateTime;
 
-abstract class ContactRecord {
+public abstract class ContactRecord {
     protected String getPhoneNumber() {
         if(!this.hasNumber()) return "[no number]";
         return phoneNumber;

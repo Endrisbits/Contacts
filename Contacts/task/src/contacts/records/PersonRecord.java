@@ -1,4 +1,6 @@
-package contacts;
+package contacts.records;
+
+import contacts.common.ContactRecord;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeParseException;
@@ -46,7 +48,7 @@ class PersonRecord extends ContactRecord {
             case "name" : return getFirstName();
             case "surname" : return getLastName();
             case "gender" : return getGender();
-            case "birthday" : return getBirthday().toString();
+            case "birthday" : return (getBirthday() != null) ? getBirthday().toString() : "";
             case "number" : return getPhoneNumber();
         }
         return null;

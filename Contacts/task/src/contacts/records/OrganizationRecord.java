@@ -1,4 +1,6 @@
-package contacts;
+package contacts.records;
+
+import contacts.common.ContactRecord;
 
 class OrganizationRecord extends ContactRecord {
     private String organizationName;
