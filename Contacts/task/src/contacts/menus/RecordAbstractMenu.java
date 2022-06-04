@@ -6,7 +6,7 @@ import java.io.PrintStream;
 import java.util.ArrayList;
 import java.util.Scanner;
 
-class RecordMenu extends Menu {
+class RecordAbstractMenu extends AbstractMenu {
     private final TYPE menuID = TYPE.RECORD_MENU;
     private enum COMMAND{
         EDIT("edit"),
@@ -46,14 +46,14 @@ class RecordMenu extends Menu {
     private ContactRecord selectedRecord;
     private int selectedRecordIndex = -1;
 
-    public RecordMenu(Scanner in, PrintStream out, ArrayList<ContactRecord> data, MenuManager manager) {
+    public RecordAbstractMenu(Scanner in, PrintStream out, ArrayList<ContactRecord> data, MenuManager manager) {
         super(in, out, data, manager);
         this.selectedRecord = null;
         this.selectedRecordIndex = -1;
     }
 
-    public RecordMenu(Scanner in, PrintStream out, ArrayList<ContactRecord> data, MenuManager manager,
-                      ContactRecord contactRecord) {
+    public RecordAbstractMenu(Scanner in, PrintStream out, ArrayList<ContactRecord> data, MenuManager manager,
+                              ContactRecord contactRecord) {
         super(in, out, data, manager);
         this.selectedRecord = contactRecord;
         int i = 0;

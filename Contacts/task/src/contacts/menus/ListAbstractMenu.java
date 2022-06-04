@@ -5,7 +5,7 @@ import java.io.PrintStream;
 import java.util.ArrayList;
 import java.util.Scanner;
 
-class ListMenu extends Menu {
+class ListAbstractMenu extends AbstractMenu {
     private final TYPE menuID = TYPE.LIST_MENU;
 
     private enum COMMAND{
@@ -55,7 +55,7 @@ class ListMenu extends Menu {
         }
     }
 
-    ListMenu(Scanner in, PrintStream out, ArrayList<ContactRecord> data, MenuManager manager) {
+    ListAbstractMenu(Scanner in, PrintStream out, ArrayList<ContactRecord> data, MenuManager manager) {
         super(in, out, data, manager);
     }
 
@@ -71,7 +71,7 @@ class ListMenu extends Menu {
                     case SELECT: {
                         ContactRecord selectedRecord = contactsList.get(command.getSelectedIndex()-1); //Starting from 0, displaying from 1
                         menuManager.register(TYPE.RECORD_MENU,
-                                new RecordMenu(this.in, this.out, contactsList, menuManager,
+                                new RecordAbstractMenu(this.in, this.out, contactsList, menuManager,
                                 selectedRecord));
                         releaseControl(TYPE.RECORD_MENU);
                         return;

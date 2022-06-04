@@ -8,7 +8,7 @@ import java.util.Scanner;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-class SearchMenu extends Menu {
+class SearchAbstractMenu extends AbstractMenu {
     private final TYPE menuID = TYPE.SEARCH_MENU;
     private enum COMMAND{
         SELECT("[number]"),
@@ -60,7 +60,7 @@ class SearchMenu extends Menu {
     private String query = "";
     private ArrayList<ContactRecord> searchResults;
 
-    public SearchMenu (Scanner in, PrintStream out, ArrayList<ContactRecord> data, MenuManager manager) {
+    public SearchAbstractMenu(Scanner in, PrintStream out, ArrayList<ContactRecord> data, MenuManager manager) {
         super(in, out, data, manager);
         searchResults = new ArrayList<ContactRecord>();
     }
@@ -77,7 +77,7 @@ class SearchMenu extends Menu {
                     case SELECT: {
                         ContactRecord selectedRecord = searchResults.get(command.getSelectedIndex());
                         menuManager.register(TYPE.RECORD_MENU,
-                                new RecordMenu(this.in, this.out, contactsList, menuManager,
+                                new RecordAbstractMenu(this.in, this.out, contactsList, menuManager,
                                 selectedRecord));
                         releaseControl(TYPE.RECORD_MENU);
                         return;

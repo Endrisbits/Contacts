@@ -26,7 +26,7 @@ abstract class AbstractMenu {
         return sb.toString();
     }
 
-    public Menu(Scanner inputSource, PrintStream outputConsole, ArrayList<ContactRecord> data, MenuManager manager) {
+    public AbstractMenu(Scanner inputSource, PrintStream outputConsole, ArrayList<ContactRecord> data, MenuManager manager) {
         this.in = inputSource;
         this.out = outputConsole;
         this.contactsList = data;

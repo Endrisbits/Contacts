@@ -7,7 +7,7 @@ import java.io.PrintStream;
 import java.util.ArrayList;
 import java.util.Scanner;
 
-class MainMenu extends Menu {
+class MainAbstractMenu extends AbstractMenu {
     private final TYPE menuID = TYPE.MAIN_MENU;
     private enum COMMAND{
         ADD("add"),
@@ -46,7 +46,7 @@ class MainMenu extends Menu {
         }
     }
 
-    public MainMenu (Scanner in, PrintStream out, ArrayList<ContactRecord> data, MenuManager manager) {
+    public MainAbstractMenu(Scanner in, PrintStream out, ArrayList<ContactRecord> data, MenuManager manager) {
         super(in, out, data, manager);
     }
 
