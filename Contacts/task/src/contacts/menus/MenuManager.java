@@ -1,5 +1,6 @@
 package contacts.menus;
 
+import contacts.database.DataManager;
 import contacts.records.ContactRecord;
 
 import java.io.PrintStream;
@@ -14,17 +15,17 @@ public class MenuManager {
     private AbstractMenu currentActiveMenu;
     private Scanner in;
     private PrintStream out;
-    private ArrayList<ContactRecord> contactsList;
     private boolean exitFlag = false;
+    private DataManager dataManager;
 
-    public MenuManager(Scanner in, PrintStream out, ArrayList<ContactRecord> contactsList) {
+    public MenuManager(Scanner in, PrintStream out, DataManager dataManager) {
         this.in = in;
         this.out = out;
-        this.contactsList = contactsList;
-        register(TYPE.MAIN_MENU, new MainMenu(in, out, contactsList, this));
-        register(TYPE.SEARCH_MENU, new SearchMenu(in, out, contactsList, this));
-        register(TYPE.LIST_MENU,new ListMenu(in, out, contactsList, this));
-        register(TYPE.RECORD_MENU, new RecordMenu(in, out, contactsList, this));
+        this.dataManager = dataManager;
+        register(TYPE.MAIN_MENU, new MainMenu(in, out, dataManager, this));
+        register(TYPE.SEARCH_MENU, new SearchMenu(in, out, dataManager, this));
+        register(TYPE.LIST_MENU,new ListMenu(in, out, dataManager, this));
+        register(TYPE.RECORD_MENU, new RecordMenu(in, out, dataManager, this));
         setCurrentActiveMenu(TYPE.MAIN_MENU);
     }
 

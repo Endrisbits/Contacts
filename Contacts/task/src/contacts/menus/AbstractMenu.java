@@ -1,35 +1,23 @@
 package contacts.menus;
 
-import contacts.records.ContactRecord;
-
+import contacts.database.DataManager;
 import java.io.PrintStream;
-import java.util.ArrayList;
 import java.util.Scanner;
 
 abstract class AbstractMenu {
     protected MenuManager menuManager;
     protected Scanner in;
     protected PrintStream out;
-    protected ArrayList<ContactRecord> contactsList;
+    protected DataManager dataManager;
 
     public abstract void enterMainLoop();
     public abstract void takeControl();
     public abstract void releaseControl(TYPE nextMenuName);
 
-    protected String getListOfCommands(String[] commandsList) {
-        StringBuilder sb = new StringBuilder();
-        sb.append("(");
-        for(int i = 0; i < commandsList.length; i++) {
-            if(i < commandsList.length - 1) sb.append(commandsList[i] +", ");
-            else sb.append(commandsList[i]+"):");
-        }
-        return sb.toString();
-    }
-
-    public AbstractMenu(Scanner inputSource, PrintStream outputConsole, ArrayList<ContactRecord> data, MenuManager manager) {
+    public AbstractMenu(Scanner inputSource, PrintStream outputConsole, DataManager dataManager, MenuManager manager) {
         this.in = inputSource;
         this.out = outputConsole;
-        this.contactsList = data;
+        this.dataManager = dataManager;
         this.menuManager = manager;
     }
 }

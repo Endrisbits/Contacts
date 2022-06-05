@@ -1,8 +1,11 @@
 package contacts;
 
-import contacts.records.ContactRecord;
+import contacts.database.DataManager;
 import contacts.menus.MenuManager;
+import contacts.records.ContactRecord;
 
+import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.io.PrintStream;
 import java.util.ArrayList;
 import java.util.Scanner;
@@ -14,16 +17,30 @@ public class Application {
     private MenuManager menuManager;
 
 
-    public Application(Scanner inputSource, PrintStream outputConsole) {
+    public Application(Scanner inputSource, PrintStream outputConsole, DataManager dataManager) {
         this.in = inputSource;
         this.out = outputConsole;
-        menuManager = new MenuManager(in, out, contactsList);
+        menuManager = new MenuManager(in, out, dataManager);
     }
 
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
         PrintStream printStream = new PrintStream(System.out);
-        Application application = new Application(scanner, printStream);
+        DataManager dataManager = null;
+        if(args.length >= 0) {
+            try {
+                if(args.length == 1){
+                    dataManager = new DataManager(args[0]);
+                } else if(args.length == 0) {
+                    dataManager = new DataManager("");
+                }
+            } catch (IOException exception){
+                printStream.println("Can't write to disk. Closing application.");
+                return;
+            }
+        }
+
+        Application application = new Application(scanner, printStream, dataManager);
         application.menuManager.dispatch();
     }
 }

@@ -1,9 +1,9 @@
 package contacts.menus;
 
+import contacts.database.DataManager;
 import contacts.records.ContactRecord;
 
 import java.io.PrintStream;
-import java.util.ArrayList;
 import java.util.Scanner;
 
 class RecordMenu extends AbstractMenu {
@@ -44,23 +44,17 @@ class RecordMenu extends AbstractMenu {
     }
 
     private ContactRecord selectedRecord;
-    private int selectedRecordIndex = -1;
 
-    public RecordMenu(Scanner in, PrintStream out, ArrayList<ContactRecord> data, MenuManager manager) {
-        super(in, out, data, manager);
+    public RecordMenu(Scanner in, PrintStream out, DataManager dataManager, MenuManager manager) {
+        super(in, out, dataManager, manager);
         this.selectedRecord = null;
-        this.selectedRecordIndex = -1;
     }
 
-    public RecordMenu(Scanner in, PrintStream out, ArrayList<ContactRecord> data, MenuManager manager,
+    public RecordMenu(Scanner in, PrintStream out, DataManager dataManager, MenuManager manager,
                       ContactRecord contactRecord) {
-        super(in, out, data, manager);
+        super(in, out, dataManager, manager);
         this.selectedRecord = contactRecord;
-        int i = 0;
-        for(ContactRecord cR : contactsList) { //Necessary to make it useful with the search function as well.
-            if(cR.equals(selectedRecord)) {this.selectedRecordIndex = i; break;}
-            i++;
-        }
+
     }
 
 
@@ -74,7 +68,7 @@ class RecordMenu extends AbstractMenu {
                 switch (command) {
                     case EDIT: editContactRecord(); break;
                     case DELETE: {
-                        contactsList.remove(selectedRecordIndex);
+                        dataManager.remove(selectedRecord);
                         releaseControl(TYPE.MAIN_MENU);
                         return;
                     }
@@ -101,12 +95,11 @@ class RecordMenu extends AbstractMenu {
     @Override
     public void releaseControl(TYPE nextMenu) {
         selectedRecord = null;
-        selectedRecordIndex = -1;
         menuManager.setCurrentActiveMenu(nextMenu);
     }
 
     public void editContactRecord() {
-        if(contactsList.size()>0 && selectedRecordIndex!=-1) {
+        if(dataManager.size()>0 && dataManager.contains(this.selectedRecord)) {
             ContactRecord contactToEdit = this.selectedRecord;
             out.print("\nSelect a field (");
             String[] modFields = contactToEdit.getModifiableFieldsNames();

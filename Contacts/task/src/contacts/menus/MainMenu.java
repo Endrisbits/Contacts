@@ -1,5 +1,6 @@
 package contacts.menus;
 
+import contacts.database.DataManager;
 import contacts.records.ContactRecord;
 import contacts.records.RecordBuilder;
 
@@ -46,8 +47,8 @@ class MainMenu extends AbstractMenu {
         }
     }
 
-    public MainMenu (Scanner in, PrintStream out, ArrayList<ContactRecord> data, MenuManager manager) {
-        super(in, out, data, manager);
+    public MainMenu (Scanner in, PrintStream out, DataManager dataManager, MenuManager manager) {
+        super(in, out, dataManager, manager);
     }
 
     @Override
@@ -102,11 +103,11 @@ class MainMenu extends AbstractMenu {
                 out.printf("\nBad %s!", modField);
             }
         }
-        this.contactsList.add(contactRecord);
+        dataManager.add(contactRecord);
         out.println("\nThe record added.");
     }
 
     public void countContactRecords() {
-        out.printf("\nThe Phone Book has %d records", this.contactsList.size());
+        out.printf("\nThe Phone Book has %d records", dataManager.size());
     }
 }

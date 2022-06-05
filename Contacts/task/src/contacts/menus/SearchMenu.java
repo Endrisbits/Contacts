@@ -1,5 +1,6 @@
 package contacts.menus;
 
+import contacts.database.DataManager;
 import contacts.records.ContactRecord;
 
 import java.io.PrintStream;
@@ -60,8 +61,8 @@ class SearchMenu extends AbstractMenu {
     private String query = "";
     private ArrayList<ContactRecord> searchResults;
 
-    public SearchMenu (Scanner in, PrintStream out, ArrayList<ContactRecord> data, MenuManager manager) {
-        super(in, out, data, manager);
+    public SearchMenu (Scanner in, PrintStream out, DataManager dataManager, MenuManager manager) {
+        super(in, out, dataManager, manager);
         searchResults = new ArrayList<ContactRecord>();
     }
 
@@ -77,7 +78,7 @@ class SearchMenu extends AbstractMenu {
                     case SELECT: {
                         ContactRecord selectedRecord = searchResults.get(command.getSelectedIndex());
                         menuManager.register(TYPE.RECORD_MENU,
-                                new RecordMenu(this.in, this.out, contactsList, menuManager,
+                                new RecordMenu(this.in, this.out, dataManager, menuManager,
                                 selectedRecord));
                         releaseControl(TYPE.RECORD_MENU);
                         return;
@@ -113,21 +114,12 @@ class SearchMenu extends AbstractMenu {
 
         out.printf("\nEnter search query: ");
         query = in.nextLine();
-        Pattern pattern = Pattern.compile(query, Pattern.CASE_INSENSITIVE);
-        for(ContactRecord record : contactsList) {
-            StringBuilder contactSearchable = new StringBuilder();
-            for(String field: record.getModifiableFieldsNames()) {
-                String fieldValue = record.getFieldValue(field);
-                if(fieldValue != null) contactSearchable.append(fieldValue + " , ");
-            }
-            Matcher matcher = pattern.matcher(contactSearchable.toString());
-            if(matcher.find()) searchResults.add(record);
-        }
+        searchResults = dataManager.simpleSearch(query);
         int nResutls = searchResults.size();
         if(nResutls == 0) {out.printf("\nFound no results.");}
         else {
             out.printf("\nFound %d results:", nResutls);
-            listSearchResults();
+            this.listSearchResults();
         }
     }
 
@@ -143,6 +135,4 @@ class SearchMenu extends AbstractMenu {
         searchResults.clear();
         menuManager.setCurrentActiveMenu(nextMenu);
     }
-
-
 }
