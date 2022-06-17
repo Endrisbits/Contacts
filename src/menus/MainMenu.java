@@ -41,7 +41,7 @@ class MainMenu extends AbstractMenu {
 
         static COMMAND parseCommand(String str) throws IllegalArgumentException {
             for(COMMAND cmd : COMMAND.values()) {
-                if(str.matches(cmd.getName())) return cmd;
+                if(str.matches(cmd.getName() + "|-" + cmd.getName().charAt(0))) return cmd;
             }
             throw new IllegalArgumentException("Unknown Command");
         }

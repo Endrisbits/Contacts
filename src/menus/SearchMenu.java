@@ -48,7 +48,7 @@ class SearchMenu extends AbstractMenu {
             for(COMMAND cmd : COMMAND.values()) {
                 if (str.matches("[0-9]*")) {
                     return COMMAND.SELECT.setIndex(Integer.parseInt(str));
-                } else if(str.matches(cmd.getName())) return cmd;
+                } else if(str.matches(cmd.getName() + "|-" + cmd.getName().charAt(0))) return cmd;
             }
             throw new IllegalArgumentException("Unknown Command");
         }

@@ -13,7 +13,7 @@ public class RecordBuilder {
 
         public static TYPE parseType(String str) throws IllegalArgumentException{
             for(TYPE type : TYPE.values()) {
-                if(str.matches(type.getName())) return type;
+                if(str.matches(type.getName() + "|-" + type.getName().charAt(0))) return type;
             }
             throw new IllegalArgumentException("Unknown Command");
         }
